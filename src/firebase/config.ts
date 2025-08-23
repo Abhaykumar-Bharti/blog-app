@@ -6,7 +6,7 @@ import { getStorage } from 'firebase/storage';
 // TODO: Replace with your Firebase project configuration
 // Get these values from your Firebase console: https://console.firebase.google.com/
 const firebaseConfig = {
-    apiKey: "AIzaSyALia2dusCAGgvKX12qEMmJ6zhX4AnSBuw",
+    apiKey: "AIzaSyDbPpOmTd25cVwid-_UdXg90xQdX2LvOCc",
     authDomain: "blog-app-a76c2.firebaseapp.com",
     projectId: "blog-app-a76c2",
     storageBucket: "blog-app-a76c2.firebasestorage.app",
