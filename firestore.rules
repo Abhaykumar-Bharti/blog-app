@@ -1,0 +1,82 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAuthor(authorId) {
+      return isAuthenticated() && request.auth.uid == authorId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    function isModerator() {
+      return isAuthenticated() && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'moderator';
+    }
+    
+    // Rate limiting function - checks if user has made too many requests
+    function notRateLimited() {
+      return request.time > get(/databases/$(database)/documents/users/$(request.auth.uid)).data.lastAction + duration.value(60, 's');
+    }
+    
+    // User collection rules
+    match /users/{userId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update: if isAuthenticated() && request.auth.uid == userId;
+      allow delete: if isAdmin();
+    }
+    
+    // Blog posts rules
+    match /blogs/{blogId} {
+      function validateBlog() {
+        let blog = request.resource.data;
+        return blog.title.size() >= 3 && 
+               blog.title.size() <= 100 &&
+               blog.content.size() >= 10 &&
+               blog.content.size() <= 50000;
+      }
+      
+      allow read: if resource.data.published == true || isAuthor(resource.data.authorId) || isAdmin() || isModerator();
+      allow create: if isAuthenticated() && 
+                   request.resource.data.authorId == request.auth.uid &&
+                   validateBlog() &&
+                   notRateLimited();
+      allow update: if (isAuthor(resource.data.authorId) && validateBlog()) || 
+                   isAdmin() ||
+                   isModerator() ||
+                   (isAuthenticated() && 
+                    request.resource.data.diff(resource.data).affectedKeys()
+                    .hasOnly(['likes', 'likedBy']));
+      allow delete: if isAuthor(resource.data.authorId) || isAdmin() || isModerator();
+    }
+    
+    // Comments rules
+    match /comments/{commentId} {
+      function validateComment() {
+        let comment = request.resource.data;
+        return comment.content.size() >= 1 &&
+               comment.content.size() <= 1000;
+      }
+      
+      allow read: if true;
+      allow create: if isAuthenticated() && 
+                   request.resource.data.authorId == request.auth.uid &&
+                   validateComment() &&
+                   notRateLimited();
+      allow update: if isAuthor(resource.data.authorId) && validateComment();
+      allow delete: if isAuthor(resource.data.authorId) || isAdmin() || isModerator();
+    }
+    
+    // Default deny for all other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
