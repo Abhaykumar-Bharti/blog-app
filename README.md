@@ -1,38 +1,38 @@
-# 📝 BlogHub — Full Stack MERN Blogging Platform
+#  BlogHub — Full Stack MERN Blogging Platform
 
-A modern, full-stack blogging application built using the **MERN Stack (MongoDB, Express.js, React, Node.js)** with **TypeScript**, **JWT Authentication**, and **Tailwind CSS**. Users can register, create, edit, publish blog posts with image uploads, interact with other posts through likes and comments, and customize their user profiles.
-
----
-
-## 🌟 Key Features
-
-- 🔐 **JWT Authentication & Authorization**: Secure signup, login, and protected routes using JWT & bcrypt password hashing.
-- ✍️ **Blog Management**: Full CRUD support to create, update, draft, publish, and delete blog posts.
-- 🖼️ **Image Uploads**: Upload post cover images and user profile avatars handled via `Multer` with automatic local storage cleanup.
-- 💬 **Interactive Comments & Likes**: Engage with content through real-time count updates for likes and blog post discussion comments.
-- 🎨 **Modern Responsive UI**: Built with React, Tailwind CSS, custom glassmorphism effects, and smooth micro-animations.
-- 🛠️ **Type-Safe Architecture**: Fully typed codebase using TypeScript across both frontend and backend modules.
+A modern, full-stack blogging application built using the MERN Stack (MongoDB, Express.js, React, Node.js) with TypeScript, JWT Authentication, and Tailwind CSS. Users can register, create, edit, publish blog posts with image uploads, interact with other posts through likes and comments, and customize their user profiles.
 
 ---
 
-## 🛠️ Tech Stack
+ Key Features
 
-### **Frontend**
-- **Framework**: React 19 (TypeScript)
-- **Routing**: React Router DOM v6
-- **Styling**: Tailwind CSS, @tailwindcss/typography, @tailwindcss/forms
-- **HTTP Client**: Axios
-
-### **Backend**
-- **Runtime**: Node.js & Express.js (TypeScript)
-- **Database**: MongoDB with Mongoose ODM
-- **Authentication**: JSON Web Tokens (JWT) & bcryptjs
-- **File Storage**: Multer (Local Disk Storage / Cloudinary support)
-- **Security**: Helmet, CORS, Express Rate Limit
+-  JWT Authentication & Authorization: Secure signup, login, and protected routes using JWT & bcrypt password hashing.
+-  Blog Management: Full CRUD support to create, update, draft, publish, and delete blog posts.
+-  Image Uploads: Upload post cover images and user profile avatars handled via `Multer` with automatic local storage cleanup.
+- Interactive Comments & Likes: Engage with content through real-time count updates for likes and blog post discussion comments.
+-  Modern Responsive UI: Built with React, Tailwind CSS, custom glassmorphism effects, and smooth micro-animations.
+-  Type-Safe Architecture: Fully typed codebase using TypeScript across both frontend and backend modules.
 
 ---
 
-## 📂 Project Structure
+ Tech Stack
+
+### Frontend
+- Framework: React 19 (TypeScript)
+- Routing: React Router DOM v6
+- Styling: Tailwind CSS, @tailwindcss/typography, @tailwindcss/forms
+- HTTP Client: Axios
+
+### Backend
+- Runtime: Node.js & Express.js (TypeScript)
+- Database: MongoDB with Mongoose ODM
+- Authentication: JSON Web Tokens (JWT) & bcryptjs
+- File Storage: Multer (Local Disk Storage / Cloudinary support)
+- Security: Helmet, CORS, Express Rate Limit
+
+---
+
+## Project Structure
 
 ```
 blog-app/
@@ -64,7 +64,7 @@ blog-app/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -103,39 +103,6 @@ Make sure you have the following installed locally:
    - Frontend will run on: `http://localhost:3000`
    - Backend API will run on: `http://localhost:5000`
 
----
-
-## 📡 REST API Reference
-
-### **Auth Routes** (`/api/auth`)
-| Method | Endpoint | Description | Protected |
-| :--- | :--- | :--- | :--- |
-| `POST` | `/api/auth/register` | Register a new user | ❌ |
-| `POST` | `/api/auth/login` | Log in and receive JWT token | ❌ |
-| `GET` | `/api/auth/profile` | Fetch authenticated user profile | 🔐 |
-| `PUT` | `/api/auth/profile` | Update profile bio/avatar | 🔐 |
-
-### **Blog Routes** (`/api/blogs`)
-| Method | Endpoint | Description | Protected |
-| :--- | :--- | :--- | :--- |
-| `GET` | `/api/blogs` | Get all published blog posts | ❌ |
-| `GET` | `/api/blogs/:id` | Get single blog post by ID | ❌ |
-| `GET` | `/api/blogs/user/:userId` | Get blog posts by specific author | ❌ |
-| `POST` | `/api/blogs` | Create a new blog post | 🔐 |
-| `PUT` | `/api/blogs/:id` | Update an existing blog post | 🔐 |
-| `DELETE` | `/api/blogs/:id` | Delete a blog post | 🔐 |
-| `POST` | `/api/blogs/:id/like` | Like a blog post | 🔐 |
-| `POST` | `/api/blogs/:id/unlike` | Remove like from a blog post | 🔐 |
-
-### **Comment Routes** (`/api/comments`)
-| Method | Endpoint | Description | Protected |
-| :--- | :--- | :--- | :--- |
-| `GET` | `/api/comments/blog/:blogId` | Get all comments for a post | ❌ |
-| `POST` | `/api/comments` | Post a comment on a blog post | 🔐 |
-| `DELETE` | `/api/comments/:id` | Delete a comment | 🔐 |
-
----
-
-## 📄 License
+##  License
 
 This project is licensed under the [MIT License](LICENSE).
