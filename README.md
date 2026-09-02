@@ -1,109 +1,141 @@
-# Blog App with React and Firebase
+# 📝 BlogHub — Full Stack MERN Blogging Platform
 
-A full-featured blog application built with React and Firebase, allowing users to create, read, update, and delete blog posts.
+A modern, full-stack blogging application built using the **MERN Stack (MongoDB, Express.js, React, Node.js)** with **TypeScript**, **JWT Authentication**, and **Tailwind CSS**. Users can register, create, edit, publish blog posts with image uploads, interact with other posts through likes and comments, and customize their user profiles.
 
-## Features
+---
 
-- User authentication (signup, login, logout)
-- Create, edit, and delete blog posts
-- Upload images for blog posts
-- Markdown content support
-- Tagging system for categorizing posts
-- Dashboard for managing your posts
-- Responsive design with Tailwind CSS
+## 🌟 Key Features
 
-## Technologies Used
+- 🔐 **JWT Authentication & Authorization**: Secure signup, login, and protected routes using JWT & bcrypt password hashing.
+- ✍️ **Blog Management**: Full CRUD support to create, update, draft, publish, and delete blog posts.
+- 🖼️ **Image Uploads**: Upload post cover images and user profile avatars handled via `Multer` with automatic local storage cleanup.
+- 💬 **Interactive Comments & Likes**: Engage with content through real-time count updates for likes and blog post discussion comments.
+- 🎨 **Modern Responsive UI**: Built with React, Tailwind CSS, custom glassmorphism effects, and smooth micro-animations.
+- 🛠️ **Type-Safe Architecture**: Fully typed codebase using TypeScript across both frontend and backend modules.
 
-- React
-- TypeScript
-- Firebase (Authentication, Firestore, Storage)
-- React Router
-- Tailwind CSS
+---
 
-## Getting Started
+## 🛠️ Tech Stack
+
+### **Frontend**
+- **Framework**: React 19 (TypeScript)
+- **Routing**: React Router DOM v6
+- **Styling**: Tailwind CSS, @tailwindcss/typography, @tailwindcss/forms
+- **HTTP Client**: Axios
+
+### **Backend**
+- **Runtime**: Node.js & Express.js (TypeScript)
+- **Database**: MongoDB with Mongoose ODM
+- **Authentication**: JSON Web Tokens (JWT) & bcryptjs
+- **File Storage**: Multer (Local Disk Storage / Cloudinary support)
+- **Security**: Helmet, CORS, Express Rate Limit
+
+---
+
+## 📂 Project Structure
+
+```
+blog-app/
+├── client/                     # React Frontend Application
+│   ├── public/                 # Static Assets
+│   ├── src/                    
+│   │   ├── components/         # Reusable UI Components (Navbar, BlogCard, etc.)
+│   │   ├── contexts/           # AuthContext & Axios Interceptors
+│   │   ├── pages/              # Application View Pages (Home, Dashboard, BlogDetail, etc.)
+│   │   ├── services/           # Axios REST API Wrappers
+│   │   └── types/              # Shared TypeScript Interfaces
+│   ├── tailwind.config.js      # Tailwind Configuration
+│   └── package.json            
+│
+├── server/                     # Node.js + Express Backend Server
+│   ├── src/
+│   │   ├── config/             # Database Connection Configuration
+│   │   ├── controllers/        # Express Handlers (Auth, Blogs, Comments)
+│   │   ├── middleware/         # Auth Guard, Multer Storage, Error Handling
+│   │   ├── models/             # Mongoose Data Schemas (User, BlogPost, Comment)
+│   │   ├── routes/             # REST Endpoints Definition
+│   │   └── server.ts           # Server Entry Point
+│   ├── uploads/                # Directory for Local Image Uploads
+│   └── package.json            
+│
+├── package.json                # Root Concurrently Script Runner
+└── README.md                   # Repository Documentation
+```
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js (v14 or later)
-- npm or yarn
-- Firebase account
+Make sure you have the following installed locally:
+- [Node.js](https://nodejs.org/) (v16.0 or higher)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [MongoDB](https://www.mongodb.com/try/download/community) running locally on port `27017` (or a MongoDB Atlas connection URI)
 
 ### Installation
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/blog-app.git
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/blog-app.git
    cd blog-app
    ```
 
-2. Install dependencies:
-   ```
-   npm install
-   ```
-
-3. Set up Firebase:
-   - Create a Firebase project at [https://console.firebase.google.com/](https://console.firebase.google.com/)
-   - Enable Authentication (Email/Password), Firestore, and Storage
-   - Copy your Firebase configuration
-
-4. Create a `.env` file in the root directory with your Firebase credentials:
-   ```
-   REACT_APP_FIREBASE_API_KEY=your-api-key
-   REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
-   REACT_APP_FIREBASE_PROJECT_ID=your-project-id
-   REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
-   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
-   REACT_APP_FIREBASE_APP_ID=your-app-id
+2. **Install all dependencies** for root, client, and server:
+   ```bash
+   npm run install-all
    ```
 
-5. Update the Firebase configuration in `src/firebase/config.ts` with your credentials.
-
-6. Start the development server:
-   ```
-   npm start
-   ```
-
-7. Open [http://localhost:3000](http://localhost:3000) to view the app in your browser.
-
-## Usage
-
-1. Sign up for a new account or log in with an existing one.
-2. Create a new blog post from the dashboard or the "Write Blog" button.
-3. Add a title, content, optional image, and tags to your post.
-4. Choose to publish immediately or save as a draft.
-5. Manage your posts from the dashboard.
-6. View all published posts from the Blogs page.
-
-## Deployment
-
-To build the app for production:
-
-```
-npm run build
-```
-
-You can deploy the app to Firebase Hosting:
-
-1. Install Firebase CLI:
-   ```
-   npm install -g firebase-tools
+3. **Configure Environment Variables**:
+   Create a `.env` file in the `server` directory:
+   ```env
+   PORT=5000
+   MONGODB_URI=mongodb://127.0.0.1:27017/blog-app
+   JWT_SECRET=your_jwt_secret_key_here
+   NODE_ENV=development
    ```
 
-2. Login to Firebase:
+4. **Run the Application**:
+   Start both the backend server and frontend client concurrently:
+   ```bash
+   npm run dev
    ```
-   firebase login
-   ```
+   - Frontend will run on: `http://localhost:3000`
+   - Backend API will run on: `http://localhost:5000`
 
-3. Initialize Firebase:
-   ```
-   firebase init
-   ```
+---
 
-4. Deploy to Firebase:
-   ```
-   firebase deploy
-   ```
+## 📡 REST API Reference
 
-## License
+### **Auth Routes** (`/api/auth`)
+| Method | Endpoint | Description | Protected |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/auth/register` | Register a new user | ❌ |
+| `POST` | `/api/auth/login` | Log in and receive JWT token | ❌ |
+| `GET` | `/api/auth/profile` | Fetch authenticated user profile | 🔐 |
+| `PUT` | `/api/auth/profile` | Update profile bio/avatar | 🔐 |
 
-This project is licensed under the MIT License.
+### **Blog Routes** (`/api/blogs`)
+| Method | Endpoint | Description | Protected |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/blogs` | Get all published blog posts | ❌ |
+| `GET` | `/api/blogs/:id` | Get single blog post by ID | ❌ |
+| `GET` | `/api/blogs/user/:userId` | Get blog posts by specific author | ❌ |
+| `POST` | `/api/blogs` | Create a new blog post | 🔐 |
+| `PUT` | `/api/blogs/:id` | Update an existing blog post | 🔐 |
+| `DELETE` | `/api/blogs/:id` | Delete a blog post | 🔐 |
+| `POST` | `/api/blogs/:id/like` | Like a blog post | 🔐 |
+| `POST` | `/api/blogs/:id/unlike` | Remove like from a blog post | 🔐 |
+
+### **Comment Routes** (`/api/comments`)
+| Method | Endpoint | Description | Protected |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/comments/blog/:blogId` | Get all comments for a post | ❌ |
+| `POST` | `/api/comments` | Post a comment on a blog post | 🔐 |
+| `DELETE` | `/api/comments/:id` | Delete a comment | 🔐 |
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
